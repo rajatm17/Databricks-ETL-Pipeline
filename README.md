@@ -2,6 +2,9 @@
 
 An end-to-end batch data pipeline that ingests raw e-commerce data from AWS S3, processes it through a Medallion Architecture (Bronze → Silver → Gold) using PySpark on Databricks, and models it into a Snowflake schema of analytics-ready fact and dimension tables — fully orchestrated with Databricks Jobs.
 
+# Dataset
+https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+
 # Architecture diagrams
 
 ## Pipeline flow
@@ -82,7 +85,7 @@ erDiagram
 | **Storage** | AWS S3 (raw landing zone), connected to Databricks via an External Volume |
 | **Processing** | PySpark notebooks, organized into Bronze / Silver / Gold layers |
 | **Orchestration** | Databricks Jobs (multi-task workflow, notebook-per-layer) |
-| **Modeling** | Snowflake schema — 1 fact table, 4 dimension tables |
+| **Modeling** | Snowflake schema — 3 fact table, 5 dimension tables |
 | **Scale** | ~97,000 customer records, ~200,000 order records, plus order items, payments, reviews, products, and sellers |
 
 ## Architecture
@@ -106,7 +109,7 @@ erDiagram
                           ▼
                  ┌─────────────────┐
                  │  GOLD LAYER       │  Dimensional modeling — Snowflake schema
-                 │  (Delta tables)   │  1 fact table + 4 dimension tables
+                 │  (Delta tables)   │  3 fact table + 5 dimension tables
                  └────────┬─────────┘
                           ▼
                  ┌─────────────────┐
