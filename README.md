@@ -14,7 +14,7 @@ flowchart TD
     A[S3 bucket<br/>9 raw ecommerce CSVs] --> B[External volume<br/>Unity Catalog, IAM-based]
     B --> C[Bronze<br/>Raw Delta, 1 table per file]
     C --> D[Silver<br/>Cleaned, deduped, typed]
-    D --> E[Gold<br/>3 fact + 5 dimension tables]
+    D --> E[Gold<br/>4 fact + 4 dimension tables]
     E --> F[Streamlit app<br/>planned, queries gold]
     G[Databricks Jobs] -.orchestrates.-> C
     G -.orchestrates.-> D
@@ -85,7 +85,7 @@ erDiagram
 | **Storage** | AWS S3 (raw landing zone), connected to Databricks via an External Volume |
 | **Processing** | PySpark notebooks, organized into Bronze / Silver / Gold layers |
 | **Orchestration** | Databricks Jobs (multi-task workflow, notebook-per-layer) |
-| **Modeling** | Snowflake schema — 3 fact table, 5 dimension tables |
+| **Modeling** | Snowflake schema — 4 fact table, 4 dimension tables |
 | **Scale** | ~97,000 customer records, ~200,000 order records, plus order items, payments, reviews, products, and sellers |
 
 ## Architecture
@@ -109,7 +109,7 @@ erDiagram
                           ▼
                  ┌─────────────────┐
                  │  GOLD LAYER       │  Dimensional modeling — Snowflake schema
-                 │  (Delta tables)   │  3 fact table + 5 dimension tables
+                 │  (Delta tables)   │  4 fact table + 4 dimension tables
                  └────────┬─────────┘
                           ▼
                  ┌─────────────────┐
